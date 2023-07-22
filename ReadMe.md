@@ -1,0 +1,3 @@
+# WideCamera
+
+Makes camera wide.
