@@ -27,7 +27,7 @@ public class WideCamera : GlobalSettingsMod<WideCameraSettings>
         {
             Object.DestroyImmediate(self);
         };
-        On.tk2dCamera.OnEnable += (orig, self) => 
+        On.tk2dCamera.OnEnable += (orig, self) =>
         {
             orig(self);
             ChangeCam(self);
