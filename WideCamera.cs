@@ -1,17 +1,12 @@
-﻿using System.Reflection;
-using Modding;
-using JetBrains.Annotations;
-using MonoMod.RuntimeDetour;
+﻿using JetBrains.Annotations;
 using SFCore.Generics;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace WideCamera;
 
 public class WideCameraSettings
 {
-    public int AspectRatioNumerator = 16;
-    public int AspectRatioDenominator = 9;
+    public bool ScaleHUD = false;
 }
 
 [UsedImplicitly]
@@ -19,14 +14,8 @@ public class WideCamera : GlobalSettingsMod<WideCameraSettings>
 {
     public WideCamera() : base("Wide Camera")
     {
-        On.ForceCameraAspect.Awake += (orig, self) =>
-        {
-            Object.DestroyImmediate(self);
-        };
-        On.ForceCameraAspectLite.Start += (orig, self) =>
-        {
-            Object.DestroyImmediate(self);
-        };
+        On.ForceCameraAspect.Awake += (orig, self) => { Object.DestroyImmediate(self); };
+        On.ForceCameraAspectLite.Start += (orig, self) => { Object.DestroyImmediate(self); };
         On.tk2dCamera.OnEnable += (orig, self) =>
         {
             orig(self);
@@ -38,9 +27,24 @@ public class WideCamera : GlobalSettingsMod<WideCameraSettings>
         }
     }
 
+    private Vector3 gameCamerasOrigScale;
+
     public override void Initialize()
     {
         Log("Initializing");
+
+        if (GlobalSettings.ScaleHUD)
+        {
+            gameCamerasOrigScale = GameCameras.instance.hudCamera.gameObject.transform.localScale;
+
+            On.GameManager.Update += (orig, self) =>
+            {
+                orig(self);
+                Vector3 newScale = gameCamerasOrigScale;
+                newScale.x = newScale.x * ((((float)Screen.width) / ((float)Screen.height)) / (16.0f / 9.0f));
+                GameCameras.instance.hudCamera.gameObject.transform.localScale = newScale;
+            };
+        }
 
         Log("Initialized");
     }
