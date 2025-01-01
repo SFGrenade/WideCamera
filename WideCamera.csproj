@@ -6,7 +6,7 @@
     <AssemblyName>WideCamera</AssemblyName>
     <AssemblyTitle>WideCamera</AssemblyTitle>
     <Description>A Hollow Knight Mod</Description>
-    <Copyright>Copyright © SFGrenade 2024</Copyright>
+    <Copyright>Copyright © SFGrenade 2025</Copyright>
     <PathMap>$(MSBuildProjectDirectory)=source</PathMap>
     <AssemblyVersion>1.5.1.0</AssemblyVersion>
     <FileVersion>$(AssemblyVersion)</FileVersion>
