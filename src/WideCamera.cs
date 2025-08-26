@@ -116,6 +116,14 @@ public class WideCamera : GlobalSettingsMod<WideCameraSettings>
             },
             new()
             {
+                name = "48:9",
+                matchBy = tk2dCameraResolutionOverride.MatchByType.AspectRatio, width = 0, height = 0,
+                aspectRatioNumerator = 48,
+                aspectRatioDenominator = 9,
+                scale = 1, autoScaleMode = tk2dCameraResolutionOverride.AutoScaleMode.FitVisible, fitMode = tk2dCameraResolutionOverride.FitMode.Center
+            },
+            new()
+            {
                 name = "Override",
                 matchBy = tk2dCameraResolutionOverride.MatchByType.Wildcard, width = 0, height = 0,
                 aspectRatioNumerator = 4,
