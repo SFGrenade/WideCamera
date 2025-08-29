@@ -1,5 +1,7 @@
-﻿using JetBrains.Annotations;
+﻿using System.Reflection;
+using JetBrains.Annotations;
 using SFCore.Generics;
+using SFCore.Utils;
 using UnityEngine;
 
 namespace WideCamera;
@@ -26,6 +28,11 @@ public class WideCamera : GlobalSettingsMod<WideCameraSettings>
             ChangeCam(camera);
         }
     }
+
+    /// <summary>
+    /// Displays the version.
+    /// </summary>
+    public override string GetVersion() => Util.GetVersion(Assembly.GetExecutingAssembly());
 
     private Vector3 gameCamerasOrigScale;
 
